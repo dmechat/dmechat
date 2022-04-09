@@ -2,32 +2,47 @@ import 'package:dmechat/core/app_state.dart';
 import 'package:dmechat/screens/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import "dart:html" as html; // TODO: this should be somewhere else
+// import "package:universal_html/html.dart" as html;
+import 'package:quick_log/quick_log.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+const _log = Logger("InitialScreen");
 
 class InitialScreen extends StatelessWidget {
   static String routeName = "/";
   AppState appState;
-  InitialScreen({Key? key, required this.appState}) : super(key: key);
+  Map<String, String> queryParameters;
+  InitialScreen({
+    Key? key,
+    required this.appState,
+    required this.queryParameters,
+  }) : super(key: key);
 
-  void _onFloatingActionPressed(BuildContext context) {
+  void _onFloatingActionPressed(BuildContext context) async {
+    const href = "https://www.dmechat.com";
     var walletLoginUrl =
-        "https://wallet.testnet.near.org/login/?success_url=${html.window.location.href}&failure_url=${html.window.location.href}";
-    html.window.location.assign(walletLoginUrl);
+        "https://wallet.testnet.near.org/login/?success_url=$href&failure_url=$href";
+    // html.window.location.assign(walletLoginUrl);
+
+    // _log.info("html, ${html.window.location.href}");
+    if (await canLaunch(walletLoginUrl)) {
+      await launch(walletLoginUrl,
+          forceWebView: true, webOnlyWindowName: "dmechat");
+    }
   }
 
   void authenticate(BuildContext context) async {
     // TODO: This needs to be fixed for other platforms
     // Figure out what to do with the incoming querystring parameters here
-    var uri = Uri.tryParse(html.window.location.href);
-    String? accountId = uri?.queryParameters["account_id"];
-    String? key = uri?.queryParameters["keys"];
+    String? accountId = queryParameters["account_id"];
+    String? key = queryParameters["all_keys"];
+    _log.info("accountId: $accountId key: $key");
     if (accountId != null &&
         accountId.isNotEmpty &&
         key != null &&
         key.isNotEmpty) {
-      if (await appState.authenticate(accountId, key)) {
-        Navigator.of(context).pushNamed(SettingsScreen.routeName);
-      }
+      await appState.authenticate(accountId, key);
+      Navigator.pushNamed(context, SettingsScreen.routeName);
     }
   }
 

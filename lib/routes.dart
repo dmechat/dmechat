@@ -1,15 +1,84 @@
 // All our routes will be available here
 import 'package:dmechat/core/app_state.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:dmechat/screens/home_screen.dart';
 import 'package:dmechat/screens/settings_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:quick_log/quick_log.dart';
 
-final Map<String, WidgetBuilder> routes = {
-  SettingsScreen.routeName: (context) => const SettingsScreen(),
-  InitialScreen.routeName: (context) => Consumer<AppState>(
-        builder: (_context, appState, child) {
-          return InitialScreen(appState: appState);
-        },
-      ),
-};
+const _log = Logger("Routes");
+
+final List<String> routes = [
+  SettingsScreen.routeName,
+  InitialScreen.routeName,
+];
+
+Route<dynamic> onGenerateRoute(RouteSettings settings) {
+  if (routes.contains(settings.name)) {
+    return getRoute(settings.name!, <String, String>{}, settings);
+  } else {
+    Uri? uri = Uri.tryParse(settings.name as dynamic);
+    if (uri != null && routes.contains(uri.path)) {
+      return getRoute(uri.path, uri.queryParameters, settings);
+    }
+    throw Exception("Not found");
+  }
+}
+
+Route<dynamic> getRoute(
+    String name, Map<String, String> queryParameters, RouteSettings settings) {
+  if (name == SettingsScreen.routeName) {
+    return MaterialPageRoute(
+      builder: (context) {
+        return const SettingsScreen();
+      },
+      settings: settings,
+    );
+  }
+  if (name == InitialScreen.routeName) {
+    return MaterialPageRoute(
+      builder: (context) {
+        return Consumer<AppState>(
+          builder: (_context, appState, child) {
+            return InitialScreen(
+              appState: appState,
+              queryParameters: queryParameters,
+            );
+          },
+        );
+      },
+      settings: settings,
+    );
+  }
+  throw Exception("Not found");
+}
+
+// final Map<String, Route<dynamic>> routes = {
+//   SettingsScreen.routeName: MaterialPageRoute(builder: (context) {
+//     return const SettingsScreen();
+//   }),
+//   InitialScreen.routeName: MaterialPageRoute(builder: (context) {
+//     return Consumer<AppState>(
+//       builder: (_context, appState, child) {
+//         return InitialScreen(appState: appState);
+//       },
+//     );
+//   }),
+// };
+
+// Route<dynamic> onGenerateRoute1(RouteSettings settings) {
+//   if (routes.containsKey(settings.name)) {
+//     return routes[settings.name]!;
+//   }
+
+//   log("onGenerateRoute.settings: $settings");
+//   Uri? uri = Uri.tryParse(settings.name as dynamic);
+//   log("onGenerateRoute.uri: $uri ${uri?.queryParameters}");
+//   if (uri != null && routes.containsKey(uri.path)) {
+//     return routes[uri.path]!;
+//   }
+
+//   assert(false, 'Need to implement ${settings.name}');
+//   throw Exception("Need to implement");
+// }
+

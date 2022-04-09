@@ -9,6 +9,7 @@ import 'package:url_strategy/url_strategy.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   setPathUrlStrategy();
   AppState appState = AppState();
   appState.initialize();
@@ -29,19 +30,12 @@ class DMEChat extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.purple,
       ),
-      initialRoute: InitialScreen.routeName,
-      routes: routes,
+      // initialRoute: InitialScreen.routeName,
+      // routes: routes,
       // onUnknownRoute: (settings) {
       //   print("onUnknownRoute.settings: $settings");
       // },
-      onGenerateRoute: (settings) {
-        print("settings: $settings");
-        if (settings.name == "/wauth") {
-          Navigator.pushReplacementNamed(context, WalletAuthScreen.routeName,
-              arguments: settings.arguments);
-        }
-        return null;
-      },
+      onGenerateRoute: onGenerateRoute,
     );
   }
 }
