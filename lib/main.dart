@@ -25,9 +25,7 @@ class DMEChat extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'dmechat',
-      theme: ThemeData(
-        primarySwatch: Colors.purple,
-      ),
+      theme: ThemeData(),
       onGenerateRoute: onGenerateRoute,
     );
   }
