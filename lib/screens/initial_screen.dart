@@ -1,10 +1,9 @@
 import 'package:dmechat/core/app_state.dart';
 import 'package:dmechat/screens/settings_screen.dart';
+import 'package:dmechat/services/rpc_server.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-// import "package:universal_html/html.dart" as html;
 import 'package:quick_log/quick_log.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 const _log = Logger("InitialScreen");
 
@@ -12,6 +11,8 @@ class InitialScreen extends StatelessWidget {
   static String routeName = "/";
   AppState appState;
   Map<String, String> queryParameters;
+  Balance balance =
+      Balance(total: "", available: "", staked: "", stateStaked: "");
   InitialScreen({
     Key? key,
     required this.appState,
@@ -19,31 +20,32 @@ class InitialScreen extends StatelessWidget {
   }) : super(key: key);
 
   void _onFloatingActionPressed(BuildContext context) async {
-    const href = "https://www.dmechat.com";
-    var walletLoginUrl =
-        "https://wallet.testnet.near.org/login/?success_url=$href&failure_url=$href";
-    // html.window.location.assign(walletLoginUrl);
+    // const href = "https://www.dmechat.com";
+    // var walletLoginUrl =
+    //     "https://wallet.testnet.near.org/login/?success_url=$href&failure_url=$href";
+    // // html.window.location.assign(walletLoginUrl);
 
-    // _log.info("html, ${html.window.location.href}");
-    if (await canLaunch(walletLoginUrl)) {
-      await launch(walletLoginUrl,
-          forceWebView: true, webOnlyWindowName: "dmechat");
-    }
+    // // _log.info("html, ${html.window.location.href}");
+    // if (await canLaunch(walletLoginUrl)) {
+    //   await launch(walletLoginUrl,
+    //       forceWebView: true, webOnlyWindowName: "dmechat");
+    // }
   }
 
-  void authenticate(BuildContext context) async {
+  Future authenticate(BuildContext context) async {
     // TODO: This needs to be fixed for other platforms
     // Figure out what to do with the incoming querystring parameters here
     String? accountId = queryParameters["account_id"];
     String? key = queryParameters["all_keys"];
     _log.info("accountId: $accountId key: $key");
-    if (accountId != null &&
-        accountId.isNotEmpty &&
-        key != null &&
-        key.isNotEmpty) {
-      await appState.authenticate(accountId, key);
-      Navigator.pushNamed(context, SettingsScreen.routeName);
-    }
+    // if (accountId != null &&
+    //     accountId.isNotEmpty &&
+    //     key != null &&
+    //     key.isNotEmpty) {
+    //   await appState.authenticate(accountId, key);
+    //   Navigator.pushNamed(context, SettingsScreen.routeName);
+    // }
+    // balance = await Account().getBalance("gtacodingtutor.testnet");
   }
 
   @override
@@ -53,7 +55,7 @@ class InitialScreen extends StatelessWidget {
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text("widget.title"),
+        title: const Text("widget.title"),
       ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
@@ -77,7 +79,7 @@ class InitialScreen extends StatelessWidget {
           children: <Widget>[
             Consumer<AppState>(
                 builder: (context, state, child) => Text(
-                      'You are ${state.accountId}:',
+                      'You are ${state.accountId}: ${balance.total}',
                     )),
             Text(
               '_counter',

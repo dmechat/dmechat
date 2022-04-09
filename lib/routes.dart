@@ -1,7 +1,7 @@
 // All our routes will be available here
 import 'package:dmechat/core/app_state.dart';
+import 'package:dmechat/screens/initial_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:dmechat/screens/home_screen.dart';
 import 'package:dmechat/screens/settings_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:quick_log/quick_log.dart';
@@ -52,33 +52,3 @@ Route<dynamic> getRoute(
   }
   throw Exception("Not found");
 }
-
-// final Map<String, Route<dynamic>> routes = {
-//   SettingsScreen.routeName: MaterialPageRoute(builder: (context) {
-//     return const SettingsScreen();
-//   }),
-//   InitialScreen.routeName: MaterialPageRoute(builder: (context) {
-//     return Consumer<AppState>(
-//       builder: (_context, appState, child) {
-//         return InitialScreen(appState: appState);
-//       },
-//     );
-//   }),
-// };
-
-// Route<dynamic> onGenerateRoute1(RouteSettings settings) {
-//   if (routes.containsKey(settings.name)) {
-//     return routes[settings.name]!;
-//   }
-
-//   log("onGenerateRoute.settings: $settings");
-//   Uri? uri = Uri.tryParse(settings.name as dynamic);
-//   log("onGenerateRoute.uri: $uri ${uri?.queryParameters}");
-//   if (uri != null && routes.containsKey(uri.path)) {
-//     return routes[uri.path]!;
-//   }
-
-//   assert(false, 'Need to implement ${settings.name}');
-//   throw Exception("Need to implement");
-// }
-
