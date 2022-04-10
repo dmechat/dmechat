@@ -1,4 +1,5 @@
 import 'package:dmechat/core/app_state.dart';
+import 'package:dmechat/screens/connect_wallet_screen.dart';
 import 'package:dmechat/screens/settings_screen.dart';
 import 'package:dmechat/services/rpc_server.dart';
 import 'package:dmechat/widgets/appbar.dart';
@@ -59,8 +60,9 @@ class InitialScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             OutlinedButton(
-              child: Text("Connect Wallet"),
-              onPressed: null,
+              child: const Text("Connect Wallet"),
+              onPressed: () =>
+                  Navigator.pushNamed(context, ConnectWalletScreen.routeName),
             )
           ],
         ),

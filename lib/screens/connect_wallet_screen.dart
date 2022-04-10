@@ -1,4 +1,5 @@
 import 'package:dmechat/core/app_state.dart';
+import 'package:dmechat/screens/chat_home_screen.dart';
 import 'package:dmechat/screens/settings_screen.dart';
 import 'package:dmechat/services/rpc_server.dart';
 import 'package:dmechat/widgets/appbar.dart';
@@ -22,10 +23,19 @@ class ConnectWalletScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: TextField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'Enter your passphrase',
+                ),
+              ),
+            ),
             OutlinedButton(
-              child: Text(
-                  "Connect Wallet Page - it will contain a stateful body to allow importing and later creating an account"),
-              onPressed: null,
+              child: const Text("Connect"),
+              onPressed: () =>
+                  Navigator.pushNamed(context, ChatHomeScreen.routeName),
             )
           ],
         ),

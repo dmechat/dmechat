@@ -2,6 +2,8 @@ import 'package:dmechat/core/app_state.dart';
 import 'package:dmechat/screens/settings_screen.dart';
 import 'package:dmechat/services/rpc_server.dart';
 import 'package:dmechat/widgets/appbar.dart';
+import 'package:dmechat/widgets/chat_contacts.dart';
+import 'package:dmechat/widgets/chat_messages.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quick_log/quick_log.dart';
@@ -17,15 +19,24 @@ class ChatHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppTopBar(routeTitle: "dmechat", actions: []),
+      appBar: AppTopBar(routeTitle: "dmechat", actions: const []),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            OutlinedButton(
-              child: Text("Chat home screen"),
-              onPressed: null,
-            )
+        child: Row(
+          children: [
+            Flexible(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ChatContacts(),
+                ),
+                flex: 3),
+            const VerticalDivider(
+              color: Colors.grey,
+              thickness: 1,
+              indent: 20,
+              endIndent: 0,
+              width: 20,
+            ),
+            Flexible(child: ChatMessages(), flex: 9),
           ],
         ),
       ),

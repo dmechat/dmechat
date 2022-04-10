@@ -18,3 +18,7 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Build with 
 flutter build web --web-renderer html
+
+
+## Deploy with
+firebase deploy
