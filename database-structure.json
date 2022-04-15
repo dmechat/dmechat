@@ -1,0 +1,15 @@
+{
+    "__info": {
+        "description": "rtdb is primarily used only for storing connectivity states"
+    },
+    "connections": {
+        "ed25519:33qks4o8DUe9QHpE41wuqNSKPSNTqju6GuyDGWq99Sth": {
+            "accountId": "dev-1649038224846-84379959752795",
+            "connected": true
+        },
+        "ed25519:6KFXYpJCE1DSQpeP8YwZi95wT871tuzpPrphZBe1JFiW": {
+            "accountId": "encode-hack-marketplace.testnet",
+            "connected": false
+        }
+    }
+}

@@ -3,6 +3,9 @@ import 'package:dmechat/screens/connect_wallet_screen.dart';
 import 'package:dmechat/screens/settings_screen.dart';
 import 'package:dmechat/services/rpc_server.dart';
 import 'package:dmechat/widgets/appbar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quick_log/quick_log.dart';
@@ -21,48 +24,32 @@ class InitialScreen extends StatelessWidget {
     required this.queryParameters,
   }) : super(key: key);
 
-  void _onFloatingActionPressed(BuildContext context) async {
-    // const href = "https://www.dmechat.com";
-    // var walletLoginUrl =
-    //     "https://wallet.testnet.near.org/login/?success_url=$href&failure_url=$href";
-    // // html.window.location.assign(walletLoginUrl);
+  //
 
-    // // _log.info("html, ${html.window.location.href}");
-    // if (await canLaunch(walletLoginUrl)) {
-    //   await launch(walletLoginUrl,
-    //       forceWebView: true, webOnlyWindowName: "dmechat");
-    // }
-  }
+  void loginwithCustomToken() async {
+    var token = await Account().getAuthToken("uid");
 
-  Future authenticate(BuildContext context) async {
-    // TODO: This needs to be fixed for other platforms
-    // Figure out what to do with the incoming querystring parameters here
-    String? accountId = queryParameters["account_id"];
-    String? key = queryParameters["all_keys"];
-    _log.info("accountId: $accountId key: $key");
-    // if (accountId != null &&
-    //     accountId.isNotEmpty &&
-    //     key != null &&
-    //     key.isNotEmpty) {
-    //   await appState.authenticate(accountId, key);
-    //   Navigator.pushNamed(context, SettingsScreen.routeName);
-    // }
-    // balance = await Account().getBalance("gtacodingtutor.testnet");
+    var authUser = await FirebaseAuth.instance.signInWithCustomToken(token);
+    _log.fine("authUser $authUser");
+    FirebaseDatabase.instance
+        .ref("testpath")
+        .set("${DateTime.now().toLocal()}  ${authUser.user?.uid}");
+    // FirebaseDatabase.instance.ref("testpath2").onValue.listen(
+    //       (value) => _log.fine("value: ${value.snapshot}"),
+    //     );
   }
 
   @override
   Widget build(BuildContext context) {
-    authenticate(context);
     return Scaffold(
-      appBar: AppTopBar(routeTitle: "dmechat", actions: []),
+      appBar: AppTopBar(routeTitle: "dmechat", actions: const []),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             OutlinedButton(
               child: const Text("Connect Wallet"),
-              onPressed: () =>
-                  Navigator.pushNamed(context, ConnectWalletScreen.routeName),
+              onPressed: loginwithCustomToken,
             )
           ],
         ),

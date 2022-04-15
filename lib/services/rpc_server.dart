@@ -3,7 +3,8 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:quick_log/quick_log.dart';
 
-const BasePath = "https://dme-rpc-server.vercel.app/api";
+// const BasePath = "https://dme-rpc-server.vercel.app/api";
+const BasePath = "http://localhost:3000/api";
 
 const _log = Logger("RPCServer");
 
@@ -32,5 +33,13 @@ class Account {
       total: map["total"]!,
       stateStaked: map["stateStaked"]!,
     );
+  }
+
+  Future<String> getAuthToken(String uid) async {
+    var url = Uri.parse("$BasePath/account/unsafeAuthenticate?uid=$uid");
+    var response = await http.get(url);
+    _log.debug("response is ${response.body}");
+    var map = jsonDecode(response.body);
+    return map["token"];
   }
 }

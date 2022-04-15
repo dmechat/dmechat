@@ -1,4 +1,5 @@
 import 'package:dmechat/core/constants.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:quick_log/quick_log.dart';
@@ -9,7 +10,7 @@ class AppState extends ChangeNotifier {
   String? accountId;
   String? publicKey;
   int? balance;
-
+  FirebaseApp? firebase;
   Future initialize() async {
     final prefs = await SharedPreferences.getInstance();
 

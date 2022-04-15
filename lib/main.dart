@@ -2,15 +2,28 @@ import 'dart:developer';
 
 import 'package:dmechat/core/app_state.dart';
 import 'package:dmechat/routes.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setPathUrlStrategy();
   AppState appState = AppState();
   appState.initialize();
+  appState.firebase = await Firebase.initializeApp(
+    options: const FirebaseOptions(
+      apiKey: "AIzaSyBwxYR8mCIlBcv38AUjY-WJOP0PR8davdA",
+      appId: "1:663814795413:web:fc21819c28f1fcdb24eb9c",
+      messagingSenderId: "663814795413",
+      projectId: "dmechat-testnet",
+      authDomain: "dmechat-testnet.firebaseapp.com",
+      databaseURL: "https://dmechat-testnet-default-rtdb.firebaseio.com",
+      storageBucket: "dmechat-testnet.appspot.com",
+    ),
+  );
   runApp(
     ChangeNotifierProvider(
         create: (context) => appState, child: const DMEChat()),
