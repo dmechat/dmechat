@@ -73,13 +73,8 @@ Route<dynamic> getRoute(
   if (name == InitialScreen.routeName) {
     return MaterialPageRoute(
       builder: (context) {
-        return Consumer<AppState>(
-          builder: (_context, appState, child) {
-            return InitialScreen(
-              appState: appState,
-              queryParameters: queryParameters,
-            );
-          },
+        return InitialScreen(
+          queryParameters: queryParameters,
         );
       },
       settings: settings,

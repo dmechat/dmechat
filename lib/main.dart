@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setPathUrlStrategy();
-  sl.init();
+  await sl.init();
   AppState appState = sl.sl<AppState>();
   appState.initialize();
   appState.firebase = await Firebase.initializeApp(

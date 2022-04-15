@@ -12,11 +12,9 @@ class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     _log.info("built settingsscreen");
-    return Scaffold(
-      body: Consumer<AppState>(
-        builder: (context, state, child) => Text(
-          'SettingsScreen: You are ${state.accountId}:',
-        ),
+    return const Scaffold(
+      body: Text(
+        'SettingsScreen: You are {account}',
       ),
     );
   }
