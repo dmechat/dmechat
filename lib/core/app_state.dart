@@ -7,10 +7,10 @@ import 'package:quick_log/quick_log.dart';
 const _log = Logger('AppState');
 
 class AppState extends ChangeNotifier {
-  String? accountId;
-  String? publicKey;
-  int? balance;
-  FirebaseApp? firebase;
+  String accountId;
+  String publicKey;
+  int balance;
+  FirebaseApp firebase;
   Future initialize() async {
     final prefs = await SharedPreferences.getInstance();
 

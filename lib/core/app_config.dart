@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 
 class AppConfig {
   final String apiUrl;
-  AppConfig({required this.apiUrl});
+  AppConfig({@required this.apiUrl});
 
   static Future<AppConfig> load() async {
     const env = kReleaseMode ? "prod" : "dev";

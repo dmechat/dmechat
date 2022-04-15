@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class AppTopBar extends StatelessWidget implements PreferredSizeWidget {
   final String routeTitle;
   List<Widget> actions = [];
-  AppTopBar({Key? key, required this.routeTitle, required this.actions})
+  AppTopBar({Key key, @required this.routeTitle, @required this.actions})
       : super(key: key);
 
   @override

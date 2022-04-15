@@ -1,19 +1,15 @@
-import 'package:dmechat/core/app_state.dart';
-import 'package:dmechat/screens/settings_screen.dart';
-import 'package:dmechat/services/rpc_server.dart';
 import 'package:dmechat/widgets/appbar.dart';
 import 'package:dmechat/widgets/chat_contacts.dart';
 import 'package:dmechat/widgets/chat_messages.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:quick_log/quick_log.dart';
 
 const _log = Logger("InitialScreen");
 
 class ChatHomeScreen extends StatelessWidget {
   static String routeName = "/chat";
-  ChatHomeScreen({
-    Key? key,
+  const ChatHomeScreen({
+    Key key,
   }) : super(key: key);
 
   @override

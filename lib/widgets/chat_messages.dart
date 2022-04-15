@@ -5,7 +5,7 @@ import 'package:dmechat/screens/chat_home_screen.dart';
 import 'package:flutter/material.dart';
 
 class ChatMessages extends StatelessWidget implements PreferredSizeWidget {
-  ChatMessages({Key? key}) : super(key: key);
+  ChatMessages({Key key}) : super(key: key);
 
   @override
   Size get preferredSize => const Size.fromHeight(48);

@@ -22,9 +22,9 @@ final List<String> routes = [
 Route<dynamic> onGenerateRoute(RouteSettings settings) {
   _log.fine("route settings $settings $routes");
   if (routes.contains(settings.name)) {
-    return getRoute(settings.name!, <String, String>{}, settings);
+    return getRoute(settings.name, <String, String>{}, settings);
   } else {
-    Uri? uri = Uri.tryParse(settings.name as dynamic);
+    Uri uri = Uri.tryParse(settings.name as dynamic);
     if (uri != null && routes.contains(uri.path)) {
       return getRoute(uri.path, uri.queryParameters, settings);
     }

@@ -30,7 +30,7 @@ void main() async {
 }
 
 class DMEChat extends StatelessWidget {
-  const DMEChat({Key? key}) : super(key: key);
+  const DMEChat({Key key}) : super(key: key);
 
   // This widget is the root of your application.
   @override

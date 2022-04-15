@@ -8,7 +8,7 @@ const _log = Logger("SettingsScreen");
 class SettingsScreen extends StatelessWidget {
   static String routeName = "/settings";
 
-  const SettingsScreen({Key? key}) : super(key: key);
+  const SettingsScreen({Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     _log.info("built settingsscreen");
