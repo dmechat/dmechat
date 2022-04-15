@@ -1,8 +1,6 @@
-import 'dart:developer';
-
 import 'package:dmechat/core/app_state.dart';
+import 'package:dmechat/injection_container.dart' as sl;
 import 'package:dmechat/routes.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:url_strategy/url_strategy.dart';
@@ -11,7 +9,8 @@ import 'package:provider/provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setPathUrlStrategy();
-  AppState appState = AppState();
+  sl.init();
+  AppState appState = sl.sl<AppState>();
   appState.initialize();
   appState.firebase = await Firebase.initializeApp(
     options: const FirebaseOptions(

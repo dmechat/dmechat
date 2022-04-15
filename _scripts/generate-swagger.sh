@@ -11,7 +11,7 @@ rm -rf plugins/openapi
 
 set -e
 wget https://dmechat-testnet-server.herokuapp.com/api-json -O ./_scripts/swagger.json
-java -jar openapi-generator-cli.jar generate -i ./_scripts/swagger.json -g dart -o ./plugins/dmechatapi --skip-validate-spec --model-name-suffix Model --type-mappings "Object"="Map" --additional-properties=pubLibrary=dmechatapi --additional-properties=pubName=dmechatapi
+java -jar openapi-generator-cli.jar generate -i ./_scripts/swagger.json -g dart2-api -o ./plugins/dmechatapi --skip-validate-spec --model-name-suffix Model --type-mappings "Object"="Map" --additional-properties=pubLibrary=dmechatapi --additional-properties=pubName=dmechatapi
 
 echo "Copying swagger.json into assets directory, and jq the necessary portion only"
 cat ./_scripts/swagger.json | jq '.info' -c > ./assets/config/dmechatapi.swagger.json

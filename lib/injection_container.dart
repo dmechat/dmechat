@@ -1,7 +1,9 @@
+import 'package:dmechat/core/app_config.dart';
 import 'package:dmechat/core/app_state.dart';
 import 'package:dmechatapi/api.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 final sl = GetIt.instance;
 
@@ -14,17 +16,9 @@ Future init() async {
   //! Repositories
   final apiClient = ApiClient(basePath: appConfig.apiUrl);
   apiClient.addDefaultHeader("Content-Type", "application/json");
-  apiClient.addDefaultHeader("x-fleetonroute-client-api-version",
-      appConfig.fleetOnRouteClientVersion.full);
+
   sl.registerSingleton<ApiClient>(apiClient);
-  sl.registerLazySingleton<GpsunitsApi>(() => GpsunitsApi(apiClient));
-  sl.registerLazySingleton<AuthApi>(() => AuthApi(apiClient));
-  sl.registerLazySingleton<UserprofilesApi>(() => UserprofilesApi(apiClient));
-  sl.registerLazySingleton<OrganizationsApi>(() => OrganizationsApi(apiClient));
-  sl.registerLazySingleton<InvitationsApi>(() => InvitationsApi(apiClient));
-  sl.registerLazySingleton<TripsApi>(() => TripsApi(apiClient));
-  sl.registerLazySingleton<ServicestatusApi>(() => ServicestatusApi(apiClient));
-  sl.registerLazySingleton<NavigationApi>(() => NavigationApi(apiClient));
+  sl.registerLazySingleton<ApiApi>(() => ApiApi(apiClient));
   //! Core
 
   //! External
