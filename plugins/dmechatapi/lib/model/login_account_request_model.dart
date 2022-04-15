@@ -1,0 +1,83 @@
+//
+// AUTO-GENERATED FILE, DO NOT MODIFY!
+//
+// @dart=2.0
+
+// ignore_for_file: unused_element, unused_import
+// ignore_for_file: always_put_required_named_parameters_first
+// ignore_for_file: lines_longer_than_80_chars
+
+part of dmechatapi;
+
+class LoginAccountRequestModel {
+  /// Returns a new [LoginAccountRequestModel] instance.
+  LoginAccountRequestModel({
+    @required this.signature,
+    @required this.signedMessage,
+    @required this.publicKey,
+  });
+
+  String signature;
+
+  String signedMessage;
+
+  String publicKey;
+
+  @override
+  bool operator ==(Object other) => identical(this, other) || other is LoginAccountRequestModel &&
+     other.signature == signature &&
+     other.signedMessage == signedMessage &&
+     other.publicKey == publicKey;
+
+  @override
+  int get hashCode =>
+    (signature == null ? 0 : signature.hashCode) +
+    (signedMessage == null ? 0 : signedMessage.hashCode) +
+    (publicKey == null ? 0 : publicKey.hashCode);
+
+  @override
+  String toString() => 'LoginAccountRequestModel[signature=$signature, signedMessage=$signedMessage, publicKey=$publicKey]';
+
+  Map<String, dynamic> toJson() {
+    final json = <String, dynamic>{};
+      json[r'signature'] = signature;
+      json[r'signedMessage'] = signedMessage;
+      json[r'publicKey'] = publicKey;
+    return json;
+  }
+
+  /// Returns a new [LoginAccountRequestModel] instance and imports its values from
+  /// [json] if it's non-null, null if [json] is null.
+  static LoginAccountRequestModel fromJson(Map<String, dynamic> json) => json == null
+    ? null
+    : LoginAccountRequestModel(
+        signature: json[r'signature'],
+        signedMessage: json[r'signedMessage'],
+        publicKey: json[r'publicKey'],
+    );
+
+  static List<LoginAccountRequestModel> listFromJson(List<dynamic> json, {bool emptyIsNull, bool growable,}) =>
+    json == null || json.isEmpty
+      ? true == emptyIsNull ? null : <LoginAccountRequestModel>[]
+      : json.map((v) => LoginAccountRequestModel.fromJson(v)).toList(growable: true == growable);
+
+  static Map<String, LoginAccountRequestModel> mapFromJson(Map<String, dynamic> json) {
+    final map = <String, LoginAccountRequestModel>{};
+    if (json != null && json.isNotEmpty) {
+      json.forEach((String key, dynamic v) => map[key] = LoginAccountRequestModel.fromJson(v));
+    }
+    return map;
+  }
+
+  // maps a json object with a list of LoginAccountRequestModel-objects as value to a dart map
+  static Map<String, List<LoginAccountRequestModel>> mapListFromJson(Map<String, dynamic> json, {bool emptyIsNull, bool growable,}) {
+    final map = <String, List<LoginAccountRequestModel>>{};
+    if (json != null && json.isNotEmpty) {
+      json.forEach((String key, dynamic v) {
+        map[key] = LoginAccountRequestModel.listFromJson(v, emptyIsNull: emptyIsNull, growable: growable);
+      });
+    }
+    return map;
+  }
+}
+
