@@ -47,8 +47,10 @@ class _BodyState extends State<Body> {
 
     var signingKey = SigningKey.fromSeed(master.key);
 
+    _log.fine("sk: ${base58.Base58Encode(signingKey.buffer.asUint8List())} ");
+
     _log.fine(
-        "signingKey: ${base58.Base58Encode(signingKey.buffer.asUint8List())} ");
+        "pk: ${base58.Base58Encode(signingKey.publicKey.buffer.asUint8List())} ");
 
     // var sk = PrivateKey(seed);
     // _log.fine("sk: ${base58.Base58Encode(sk.keyBytes)}");
