@@ -44,7 +44,11 @@ dependencies:
 
   dmechatapi:
     path: ./plugins/dmechatapi
-
+  bip39: ^1.0.6
+  cryptography: ^2.0.5
+  hex: ^0.2.0
+  ed25519_hd_key: ^2.2.0
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

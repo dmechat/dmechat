@@ -1,4 +1,5 @@
 import 'package:dmechat/core/app_state.dart';
+import 'package:dmechat/screens/initial_screen/components/body.dart';
 import 'package:dmechat/widgets/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:quick_log/quick_log.dart';
@@ -24,17 +25,7 @@ class InitialScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppTopBar(routeTitle: "dmechat", actions: const []),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            OutlinedButton(
-              child: Text("Connect Wallet"),
-              onPressed: null,
-            )
-          ],
-        ),
-      ),
+      body: const Body(),
     );
   }
 }

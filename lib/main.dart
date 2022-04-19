@@ -12,6 +12,7 @@ void main() async {
   await sl.init();
   AppState appState = sl.sl<AppState>();
   appState.initialize();
+  // TODO: Move all of this to env.json
   appState.firebase = await Firebase.initializeApp(
     options: const FirebaseOptions(
       apiKey: "AIzaSyBwxYR8mCIlBcv38AUjY-WJOP0PR8davdA",

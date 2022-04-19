@@ -2,7 +2,7 @@
 import 'package:dmechat/core/app_state.dart';
 import 'package:dmechat/screens/chat_home_screen.dart';
 import 'package:dmechat/screens/connect_wallet_screen.dart';
-import 'package:dmechat/screens/initial_screen.dart';
+import 'package:dmechat/screens/initial_screen/initial_screen.dart';
 import 'package:dmechat/screens/profile_settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:dmechat/screens/settings_screen.dart';
