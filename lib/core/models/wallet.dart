@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class TokenBalance {
   final String id;
   final double balance;
