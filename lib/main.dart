@@ -1,6 +1,7 @@
 import 'package:dmechat/core/app_state.dart';
 import 'package:dmechat/injection_container.dart' as sl;
 import 'package:dmechat/routes.dart';
+import 'package:dmechat/screens/splash_screen/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:url_strategy/url_strategy.dart';
@@ -38,8 +39,8 @@ class DMEChat extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'dmechat',
-      theme: ThemeData(),
-      onGenerateRoute: onGenerateRoute,
+      routes: routes,
+      initialRoute: SplashScreen.routeName,
     );
   }
 }

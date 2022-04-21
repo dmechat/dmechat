@@ -12,28 +12,28 @@ class AppState extends ChangeNotifier {
   int balance;
   FirebaseApp firebase;
   Future initialize() async {
-    final prefs = await SharedPreferences.getInstance();
+    // final prefs = await SharedPreferences.getInstance();
 
-    _log.info("initialize.prefs $prefs ${prefs.getKeys()}");
-    accountId = prefs.getString(Constants().keys.accountId);
-    publicKey = prefs.getString(Constants().keys.publicKey);
-    _log.fine("Retrieved: $accountId $publicKey");
-    // notifyListeners();
+    // _log.info("initialize.prefs $prefs ${prefs.getKeys()}");
+    // accountId = prefs.getString(Keys().accountId);
+    // publicKey = prefs.getString(Keys().publicKey);
+    // _log.fine("Retrieved: $accountId $publicKey");
+    // // notifyListeners();
   }
 
-  Future authenticate(String _accountId, String _publicKey) async {
-    final prefs = await SharedPreferences.getInstance();
-    _log.info("authenticate.prefs $prefs");
-    if (!await prefs.setString(Constants().keys.accountId, _accountId)) {
-      _log.fine("not able to set accountId");
-      throw Exception("Error");
-    }
-    if (!await prefs.setString(Constants().keys.publicKey, _publicKey)) {
-      _log.fine("not able to set key");
-      throw Exception("Error");
-    }
-    await prefs.reload();
-    _log.info("initialize.prefs $prefs ${prefs.getKeys()}");
-    await initialize();
-  }
+  // Future authenticate(String _accountId, String _publicKey) async {
+  //   final prefs = await SharedPreferences.getInstance();
+  //   _log.info("authenticate.prefs $prefs");
+  //   if (!await prefs.setString(Keys().accountId, _accountId)) {
+  //     _log.fine("not able to set accountId");
+  //     throw Exception("Error");
+  //   }
+  //   if (!await prefs.setString(Keys().publicKey, _publicKey)) {
+  //     _log.fine("not able to set key");
+  //     throw Exception("Error");
+  //   }
+  //   await prefs.reload();
+  //   _log.info("initialize.prefs $prefs ${prefs.getKeys()}");
+  //   await initialize();
+  // }
 }
