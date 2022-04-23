@@ -1,3 +1,4 @@
+import 'package:dmechat/screens/chats_screen/chats_screen.dart';
 import 'package:dmechat/screens/contacts_screen/contacts_screen.dart';
 import 'package:dmechat/widgets/responsive/responsive.dart';
 import 'package:flutter/material.dart';
@@ -16,8 +17,7 @@ class SplashScreen extends StatelessWidget {
         mobile: ElevatedButton(
           child: Text("Go to contacts screen"),
           onPressed: () {
-            Navigator.of(context)
-                .pushReplacementNamed(ContactsScreen.routeName);
+            Navigator.of(context).pushReplacementNamed(ChatsScreen.routeName);
           },
         ),
       ),

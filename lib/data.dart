@@ -35,37 +35,44 @@ var currentUser = Contact(
 var rooms = List.filled(
   12,
   1,
-).map(
-  (r) => Room(
-    name: f.conference.name(),
-    isArchived: f.randomGenerator.boolean(),
-  ),
-);
+)
+    .map(
+      (r) => Room(
+        name: f.conference.name(),
+        isArchived: f.randomGenerator.boolean(),
+      ),
+    )
+    .toList();
 
 // Build chat messages
-var chatMessages = contacts.map(
-  (e) => Chat(
-    id: f.guid.guid(),
-    memberAccountIds: [currentUser.accountId, e.accountId],
-    visibleMessages: List.filled(f.randomGenerator.numbers(25, 1).first, 1).map(
-      (v) => ChatMessage(
-        content: Faker()
-            .lorem
-            .sentences(math.min(f.randomGenerator.numbers(2, 1).first, 1))
-            .join("."),
+var chatMessages = contacts
+    .map(
+      (e) => Chat(
         id: f.guid.guid(),
-        isDelivered: f.randomGenerator.boolean(),
-        isEdited: f.randomGenerator.boolean(),
-        isRead: f.randomGenerator.boolean(),
-        senderAccountId: Faker()
-            .randomGenerator
-            .element([currentUser.accountId, e.accountId]),
-        timestamp: f.date.dateTime(maxYear: 2022, minYear: 2021),
-        type: f.randomGenerator.element(MessageType.values),
+        memberAccountIds: [currentUser.accountId, e.accountId],
+        visibleMessages: List.filled(f.randomGenerator.numbers(25, 1).first, 1)
+            .map(
+              (v) => ChatMessage(
+                content: Faker()
+                    .lorem
+                    .sentences(
+                        math.min(f.randomGenerator.numbers(2, 1).first, 1))
+                    .join("."),
+                id: f.guid.guid(),
+                isDelivered: f.randomGenerator.boolean(),
+                isEdited: f.randomGenerator.boolean(),
+                isRead: f.randomGenerator.boolean(),
+                senderAccountId: Faker()
+                    .randomGenerator
+                    .element([currentUser.accountId, e.accountId]),
+                timestamp: f.date.dateTime(maxYear: 2022, minYear: 2021),
+                type: f.randomGenerator.element(MessageType.values),
+              ),
+            )
+            .toList(),
       ),
-    ),
-  ),
-);
+    )
+    .toList();
 
 // Build call logs
 var callLogs = contacts
@@ -96,3 +103,5 @@ var wallet = Wallet(
     tokenName: "NEAR",
   ),
 );
+
+var randomPastDate = f.date.dateTime(maxYear: 2021, minYear: 2020);

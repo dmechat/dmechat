@@ -21,6 +21,7 @@ flutter run --web-renderer html
 
 ## Build with 
 flutter build web --web-renderer html
+flutter build web --no-sound-null-safety --web-renderer html
 
 ## Deploy with
 firebase deploy
