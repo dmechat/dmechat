@@ -24,36 +24,33 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   @override
   Widget build(BuildContext context) {
+    var bottomNavigationBar = BottomNavigationBar(
+      type: BottomNavigationBarType.fixed,
+      currentIndex: widget.currentIndex,
+      onTap: (index) {
+        if (index != widget.currentIndex) {
+          Navigator.of(context).pushNamed(routes[index]);
+        }
+      },
+      items: const [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.chat_bubble),
+          label: "Chats",
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.contact_page),
+          label: "Contacts",
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.phone_in_talk),
+          label: "Calls",
+        ),
+      ],
+    );
     return Responsive(
-      desktop: Container(),
-      tablet: Container(),
-      mobile: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        currentIndex: widget.currentIndex,
-        onTap: (index) {
-          if (index != widget.currentIndex) {
-            Navigator.of(context).pushNamed(routes[index]);
-          }
-        },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.chat_bubble),
-            label: "Chats",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.contact_page),
-            label: "Contacts",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.phone_in_talk),
-            label: "Calls",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: "Settings",
-          ),
-        ],
-      ),
+      desktop: SizedBox(width: 0, height: 0),
+      tablet: bottomNavigationBar,
+      mobile: bottomNavigationBar,
     );
   }
 }

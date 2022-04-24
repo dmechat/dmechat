@@ -10,16 +10,17 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var elevatedButton = ElevatedButton(
+      child: Text("Go to contacts screen"),
+      onPressed: () {
+        Navigator.of(context).pushReplacementNamed(ChatsScreen.routeName);
+      },
+    );
     return Scaffold(
       body: Responsive(
-        desktop: Text("desktop"),
-        tablet: Text("tablet"),
-        mobile: ElevatedButton(
-          child: Text("Go to contacts screen"),
-          onPressed: () {
-            Navigator.of(context).pushReplacementNamed(ChatsScreen.routeName);
-          },
-        ),
+        desktop: elevatedButton,
+        tablet: elevatedButton,
+        mobile: elevatedButton,
       ),
     );
   }

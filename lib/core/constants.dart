@@ -17,3 +17,5 @@ const kSmallIconSize = kDefaultPadding + 2;
 
 var kOnlineDotColor = Colors.green.shade400.withOpacity(0.8);
 var kDividerColor = Colors.blueGrey.shade400;
+
+var kPrimaryColor = Colors.green;

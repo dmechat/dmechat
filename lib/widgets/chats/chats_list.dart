@@ -4,26 +4,42 @@ import 'package:dmechat/data.dart';
 import 'package:flutter/material.dart';
 
 class ChatsList extends StatefulWidget {
-  const ChatsList({Key key}) : super(key: key);
+  Function(Contact) onTap = (c) {};
+  ChatsList({Key key, this.onTap}) : super(key: key);
 
   @override
-  State<ChatsList> createState() => _ChatsList();
+  State<ChatsList> createState() => _ChatsList(onTap);
 }
 
 class _ChatsList extends State<ChatsList> {
+  Function onTap;
+  List<Contact> favoriteContacts =
+      contacts.where((c) => c.isFavorite).take(6).toList();
+  List<Contact> dms = contacts.take(6).toList();
+  _ChatsList(this.onTap);
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(kDefaultPadding * 2),
-      child: SingleChildScrollView(
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(kDefaultPadding * 2),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
+          children: [
             ContactsListHeader(),
             ContactsSearchBar(),
-            FavoriteContacts(),
-            DMContacts(),
+            ContactListTiles(
+              onTap: onTap,
+              contacts: favoriteContacts,
+              header: "Favorites",
+            ),
+            ContactListTiles(
+              onTap: onTap,
+              contacts: dms,
+              header: "Direct Messages",
+            ),
+            // DMContacts(),
             Rooms(),
             ArchivedChats()
           ],
@@ -67,13 +83,16 @@ class _ContactsSearchBarState extends State<ContactsSearchBar> {
   }
 }
 
-class FavoriteContacts extends StatelessWidget {
-  const FavoriteContacts({Key key}) : super(key: key);
+class ContactListTiles extends StatelessWidget {
+  Function(Contact) onTap = (c) {};
+  List<Contact> contacts;
+  String header;
+  ContactListTiles(
+      {Key key, this.onTap, @required this.contacts, @required this.header})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var favoriteContacts = contacts.where((c) => c.isFavorite).take(6);
-
     return Padding(
       padding: const EdgeInsets.only(top: kDefaultPadding * 2),
       child: Column(
@@ -81,45 +100,45 @@ class FavoriteContacts extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(bottom: kDefaultPadding),
-            child: Text("Favorites".toUpperCase(),
+            child: Text(header.toUpperCase(),
                 style: Theme.of(context).textTheme.titleMedium),
           ),
-          ...contactList(favoriteContacts)
+          ...contactList(contacts, onTap)
         ],
       ),
     );
   }
 }
 
-class DMContacts extends StatelessWidget {
-  const DMContacts({Key key}) : super(key: key);
+// class DMContacts extends StatelessWidget {
+//   const DMContacts({Key key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    var dmContacts = contacts.take(6);
+//   @override
+//   Widget build(BuildContext context) {
+//     var dmContacts = ;
 
-    return Padding(
-      padding: const EdgeInsets.only(top: kDefaultPadding * 2),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: kDefaultPadding),
-            child: Row(
-              children: [
-                Text(
-                  "Direct Messages".toUpperCase(),
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-              ],
-            ),
-          ),
-          ...contactList(dmContacts)
-        ],
-      ),
-    );
-  }
-}
+//     return Padding(
+//       padding: const EdgeInsets.only(top: kDefaultPadding * 2),
+//       child: Column(
+//         crossAxisAlignment: CrossAxisAlignment.start,
+//         children: [
+//           Padding(
+//             padding: const EdgeInsets.only(bottom: kDefaultPadding),
+//             child: Row(
+//               children: [
+//                 Text(
+//                   "Direct Messages".toUpperCase(),
+//                   style: Theme.of(context).textTheme.titleMedium,
+//                 ),
+//               ],
+//             ),
+//           ),
+//           ...contactList(dmContacts, (Contact c) {})
+//         ],
+//       ),
+//     );
+//   }
+// }
 
 class Rooms extends StatelessWidget {
   const Rooms({Key key}) : super(key: key);
@@ -174,11 +193,13 @@ class ArchivedChats extends StatelessWidget {
 }
 
 /// This needs to be a widget
-contactList(Iterable<Contact> contacts) {
+contactList(Iterable<Contact> contacts, Function onTap) {
   return contacts.map((v) => ContactListTile(
         contact: v,
         options: ContactListTileOptions(
           showMessageChips: true,
+          onTap: onTap,
+          showAvatar: true,
         ),
       ));
 }
@@ -187,10 +208,14 @@ class ContactListTileOptions {
   bool showMessageChips = false;
   Widget suffixWidget = Container();
   Widget bottomWidget = Container();
+  bool showAvatar = true;
+  Function(Contact) onTap = (Contact c) {};
   ContactListTileOptions({
     this.showMessageChips,
     this.suffixWidget,
     this.bottomWidget,
+    this.onTap,
+    this.showAvatar,
   });
 }
 
@@ -210,14 +235,15 @@ class ContactListTile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: kDefaultPadding / 2),
       child: InkWell(
-        onTap: () {},
+        onTap: () => options.onTap(contact),
         child: Row(children: [
           Stack(
             alignment: Alignment.bottomRight,
             children: [
-              CircleAvatar(
-                foregroundImage: NetworkImage(contact.imageUrl),
-              ),
+              if (options.showAvatar)
+                CircleAvatar(
+                  foregroundImage: NetworkImage(contact.imageUrl),
+                ),
               Container(
                   height: kIndicatorSize,
                   width: kIndicatorSize,

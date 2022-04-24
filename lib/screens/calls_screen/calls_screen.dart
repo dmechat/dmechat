@@ -18,9 +18,9 @@ class _CallsScreenState extends State<CallsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Responsive(
-        tablet: Text("tablet"),
+      body: const Responsive(
         desktop: Text("desktop"),
+        tablet: CallsList(),
         mobile: CallsList(),
       ),
       bottomNavigationBar: BottomNavBar(
@@ -35,9 +35,9 @@ class CallsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(kDefaultPadding * 2),
-      child: SingleChildScrollView(
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(kDefaultPadding * 2),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,

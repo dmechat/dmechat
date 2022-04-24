@@ -1,4 +1,7 @@
+import 'dart:convert';
+import 'dart:io';
 import 'dart:math' as math;
+import 'dart:math';
 
 import 'package:dmechat/core/models/models.dart';
 import 'package:faker/faker.dart';
@@ -50,13 +53,12 @@ var chatMessages = contacts
       (e) => Chat(
         id: f.guid.guid(),
         memberAccountIds: [currentUser.accountId, e.accountId],
-        visibleMessages: List.filled(f.randomGenerator.numbers(25, 1).first, 1)
+        visibleMessages: List.filled(Random().nextInt(20), 1)
             .map(
               (v) => ChatMessage(
                 content: Faker()
                     .lorem
-                    .sentences(
-                        math.min(f.randomGenerator.numbers(2, 1).first, 1))
+                    .sentences(math.max(Random().nextInt(2), 1))
                     .join("."),
                 id: f.guid.guid(),
                 isDelivered: f.randomGenerator.boolean(),
@@ -105,3 +107,15 @@ var wallet = Wallet(
 );
 
 var randomPastDate = f.date.dateTime(maxYear: 2021, minYear: 2020);
+
+// var allData = {
+//   "contacts": contacts.toList(),
+//   "wallet": wallet,
+//   "callLogs": callLogs.toList(),
+//   "chatMessages": chatMessages.toList(),
+//   "currentUser": currentUser
+// };
+
+// writeData() async {
+//   print(jsonEncode(allData));
+// }

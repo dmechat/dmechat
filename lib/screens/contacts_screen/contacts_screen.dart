@@ -17,8 +17,8 @@ class _ContactsScreenState extends State<ContactsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: const Responsive(
-        tablet: Text("tablet"),
         desktop: Text("desktop"),
+        tablet: ContactsList(),
         mobile: ContactsList(),
       ),
       bottomNavigationBar: BottomNavBar(
