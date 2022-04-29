@@ -199,7 +199,6 @@ contactList(Iterable<Contact> contacts, Function onTap) {
         options: ContactListTileOptions(
           showMessageChips: true,
           onTap: onTap,
-          showAvatar: true,
         ),
       ));
 }
@@ -208,14 +207,12 @@ class ContactListTileOptions {
   bool showMessageChips = false;
   Widget suffixWidget = Container();
   Widget bottomWidget = Container();
-  bool showAvatar = true;
   Function(Contact) onTap = (Contact c) {};
   ContactListTileOptions({
     this.showMessageChips,
     this.suffixWidget,
     this.bottomWidget,
     this.onTap,
-    this.showAvatar,
   });
 }
 
@@ -240,10 +237,9 @@ class ContactListTile extends StatelessWidget {
           Stack(
             alignment: Alignment.bottomRight,
             children: [
-              if (options.showAvatar)
-                CircleAvatar(
-                  foregroundImage: NetworkImage(contact.imageUrl),
-                ),
+              CircleAvatar(
+                foregroundImage: NetworkImage(contact.imageUrl),
+              ),
               Container(
                   height: kIndicatorSize,
                   width: kIndicatorSize,

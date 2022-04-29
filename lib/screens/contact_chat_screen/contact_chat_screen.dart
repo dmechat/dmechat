@@ -23,8 +23,10 @@ class ContactsChatScreen extends StatelessWidget {
         children: [
           PersonHeaderContent(contact: person),
           Flexible(
-              child:
-                  SingleChildScrollView(child: ChatMessages(contact: person))),
+            child: SingleChildScrollView(
+              child: ChatMessages(contact: person),
+            ),
+          ),
           ChatInputField(),
         ],
       ),
@@ -262,7 +264,8 @@ class ChatMessages extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(contact.name),
+            // Tooltip(child: , message: "Hello"),
+            Text(contact.name)
           ],
         ),
       ),
