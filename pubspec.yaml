@@ -46,7 +46,7 @@ dependencies:
   convert: ^3.0.1
   fast_base58: ^0.2.1
   pinenacl: ^0.3.3
-
+  bip32_ed25519: ^0.2.1
   dmechatapi:
     path: ./plugins/dmechatapi
 

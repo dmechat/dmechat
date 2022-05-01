@@ -17,7 +17,7 @@ class AppConfig {
     final fleetOnRouteSwaggerContent =
         await rootBundle.loadString('assets/config/dmechatapi.swagger.json');
     final version = json.decode(fleetOnRouteSwaggerContent)["version"];
-
+    print("jsonContents: $jsonContents");
     return AppConfig(
       apiUrl: jsonContents['apiUrl'],
     );
