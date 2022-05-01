@@ -14,6 +14,7 @@ class AppState extends ChangeNotifier {
   Future initialize() async {
     // TODO: Move all of this to env.json
     firebase = await Firebase.initializeApp(
+      name: "dmechat",
       options: const FirebaseOptions(
         apiKey: "AIzaSyBwxYR8mCIlBcv38AUjY-WJOP0PR8davdA",
         appId: "1:663814795413:web:fc21819c28f1fcdb24eb9c",

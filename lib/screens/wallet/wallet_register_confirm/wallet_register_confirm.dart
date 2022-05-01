@@ -23,7 +23,7 @@ class _WalletRegisterConfirmScreenState
       body: Responsive(
         desktop: const Text("desktop"),
         tablet: const WalletRegisterConfirmWidget(),
-        mobile: const Text("mobile"),
+        mobile: const WalletRegisterConfirmWidget(),
       ),
     );
   }

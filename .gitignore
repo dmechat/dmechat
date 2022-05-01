@@ -49,3 +49,5 @@ app.*.map.json
 google-services.json
 
 openapi-generator-cli.jar
+
+release-notes.txt
