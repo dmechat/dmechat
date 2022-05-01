@@ -51,7 +51,7 @@ No authorization required
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **loginGuest**
-> loginGuest(loginAccountRequestModel)
+> LoginAccountResponseModel loginGuest(loginAccountRequestModel)
 
 Allows guests login with their secret/public keys and receive a firebase auth token in return
 
@@ -63,7 +63,8 @@ final api_instance = ApiApi();
 final loginAccountRequestModel = LoginAccountRequestModel(); // LoginAccountRequestModel | 
 
 try { 
-    api_instance.loginGuest(loginAccountRequestModel);
+    final result = api_instance.loginGuest(loginAccountRequestModel);
+    print(result);
 } catch (e) {
     print('Exception when calling ApiApi->loginGuest: $e\n');
 }
@@ -77,7 +78,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-void (empty response body)
+[**LoginAccountResponseModel**](LoginAccountResponseModel.md)
 
 ### Authorization
 
@@ -86,7 +87,7 @@ No authorization required
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

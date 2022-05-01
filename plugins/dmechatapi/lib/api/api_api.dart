@@ -114,11 +114,18 @@ class ApiApi {
   /// Parameters:
   ///
   /// * [LoginAccountRequestModel] loginAccountRequestModel (required):
-  Future<void> loginGuest(LoginAccountRequestModel loginAccountRequestModel) async {
+  Future<LoginAccountResponseModel> loginGuest(LoginAccountRequestModel loginAccountRequestModel) async {
     final response = await loginGuestWithHttpInfo(loginAccountRequestModel);
     if (response.statusCode >= HttpStatus.badRequest) {
       throw ApiException(response.statusCode, _decodeBodyBytes(response));
     }
+    // When a remote server returns no body with a status of 204, we shall not decode it.
+    // At the time of writing this, `dart:convert` will throw an "Unexpected end of input"
+    // FormatException when trying to decode an empty string.
+    if (response.body != null && response.statusCode != HttpStatus.noContent) {
+      return apiClient.deserialize(_decodeBodyBytes(response), 'LoginAccountResponseModel') as LoginAccountResponseModel;
+        }
+    return Future<LoginAccountResponseModel>.value(null);
   }
 
   /// Allows users to register an account on the guests.dmechat contract

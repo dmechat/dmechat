@@ -5,6 +5,7 @@ class Keys {
   String publicKey = "publicKey";
   String privateKey = "privateKey";
   String mnemonic = "mnemonic";
+  String credentials = "credentials";
 }
 
 const kMobileWidth = 500;

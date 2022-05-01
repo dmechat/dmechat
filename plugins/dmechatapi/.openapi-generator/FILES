@@ -3,6 +3,7 @@
 README.md
 doc/ApiApi.md
 doc/LoginAccountRequestModel.md
+doc/LoginAccountResponseModel.md
 doc/RegisterGuestAccountRequestModel.md
 doc/RegisterGuestAccountResponseModel.md
 git_push.sh
@@ -17,6 +18,8 @@ lib/auth/http_basic_auth.dart
 lib/auth/http_bearer_auth.dart
 lib/auth/oauth.dart
 lib/model/login_account_request_model.dart
+lib/model/login_account_response_model.dart
 lib/model/register_guest_account_request_model.dart
 lib/model/register_guest_account_response_model.dart
 pubspec.yaml
+test/login_account_response_model_test.dart

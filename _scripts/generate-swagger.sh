@@ -10,7 +10,8 @@ echo "Clearing openapi folder"
 rm -rf plugins/openapi
 
 set -e
-wget https://dmechat-testnet-server.herokuapp.com/api-json -O ./_scripts/swagger.json
+# wget https://dmechat-testnet-server.herokuapp.com/api-json -O ./_scripts/swagger.json
+wget http://localhost:3000/api-json -O ./_scripts/swagger.json
 java -jar openapi-generator-cli.jar generate -i ./_scripts/swagger.json -g dart -o ./plugins/dmechatapi --skip-validate-spec --model-name-suffix Model --type-mappings "Object"="Map" --additional-properties=pubLibrary=dmechatapi --additional-properties=pubName=dmechatapi
 
 echo "Copying swagger.json into assets directory, and jq the necessary portion only"

@@ -64,6 +64,7 @@ Class | Method | HTTP request | Description
 ## Documentation For Models
 
  - [LoginAccountRequestModel](doc//LoginAccountRequestModel.md)
+ - [LoginAccountResponseModel](doc//LoginAccountResponseModel.md)
  - [RegisterGuestAccountRequestModel](doc//RegisterGuestAccountRequestModel.md)
  - [RegisterGuestAccountResponseModel](doc//RegisterGuestAccountResponseModel.md)
 

@@ -2,11 +2,17 @@ import 'dart:convert';
 
 import 'package:bip39/bip39.dart';
 import 'package:convert/convert.dart';
+import 'package:dmechat/core/app_state.dart';
 import 'package:dmechat/core/constants.dart';
+import 'package:dmechat/core/models/dme_auth_user.dart';
 import 'package:dmechat/data.dart';
 import 'package:dmechat/injection_container.dart';
+import 'package:dmechat/screens/chats_screen/chats_screen.dart';
 import 'package:dmechatapi/api.dart';
 import 'package:fast_base58/fast_base58.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:pinenacl/ed25519.dart';
 import 'package:quick_log/quick_log.dart';
@@ -26,7 +32,7 @@ class WalletRegisterUsername extends StatefulWidget {
 
 class _WalletRegisterUsernameState extends State<WalletRegisterUsername> {
   String mnemonic = generateMnemonic();
-  String username = f.internet.userName();
+  String username = f.person.firstName().toLowerCase();
 
   saveSeedPhraseAndRegisterForGuestAccount() async {
     var sp = sl<SharedPreferences>();
@@ -41,9 +47,34 @@ class _WalletRegisterUsernameState extends State<WalletRegisterUsername> {
 
     var signingKey = bip32_ed25519.SigningKey.fromSeed(master.key);
     var registerResult = await registerGuestAccount(signingKey, api, sp);
+    _log.fine("registerResult: $registerResult");
 
     // get login token
-    var loginTokenResult = loginAsGuest(signingKey, api, sp);
+    var loginTokenResult = await loginAsGuest(signingKey, api, sp);
+    var appState = sl<AppState>();
+    var signInResult = await FirebaseAuth.instanceFor(app: appState.firebase)
+        .signInWithCustomToken(loginTokenResult.signInToken);
+    _log.fine("signInResult: $signInResult");
+    sp.setString(
+      Keys().credentials,
+      jsonEncode(
+        DMEAuthUser.toJson(DMEAuthUser.fromUser(
+          signInResult.user,
+          await signInResult.user.getIdToken(),
+        )),
+      ),
+    );
+    _log.fine(
+        "We have created the wallet and account. This page should be locked");
+
+    var pk = Base58Encode(signingKey.publicKey.buffer.asUint8List());
+    var publicKey = "ed25519:$pk";
+    FirebaseDatabase.instanceFor(app: appState.firebase)
+        .ref("users")
+        .child(publicKey)
+        .set({"accountId": signInResult.user.uid});
+
+    // Navigator.of(context).pushReplacementNamed(ChatsScreen.routeName);
   }
 
   Future<RegisterGuestAccountResponseModel> registerGuestAccount(
@@ -69,11 +100,17 @@ class _WalletRegisterUsernameState extends State<WalletRegisterUsername> {
     return result;
   }
 
-  loginAsGuest(SigningKey signingKey, ApiApi api, SharedPreferences sp) async {
+  Future<LoginAccountResponseModel> loginAsGuest(
+      SigningKey signingKey, ApiApi api, SharedPreferences sp) async {
+    var pk = Base58Encode(signingKey.publicKey.buffer.asUint8List());
+    var publicKey = "ed25519:$pk";
+    var accountId = "$username.guests.dev-1650038403427-88855978238907";
+    var message = jsonEncode({"accountId": accountId});
+    var signedMessage = signingKey.sign(Uint8List.fromList(message.codeUnits));
     var result = await api.loginGuest(LoginAccountRequestModel(
-      signature: signature,
-      signedMessage: signedMessage,
       publicKey: publicKey,
+      signedMessage: base64.encode(signedMessage.asTypedList),
+      signature: base64.encode(signedMessage.signature.asTypedList),
     ));
     return result;
   }

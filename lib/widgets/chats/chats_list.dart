@@ -1,7 +1,13 @@
+import 'dart:convert';
+
+import 'package:dmechat/core/app_state.dart';
 import 'package:dmechat/core/constants.dart';
 import 'package:dmechat/core/models/models.dart';
 import 'package:dmechat/data.dart';
+import 'package:dmechat/injection_container.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ChatsList extends StatefulWidget {
   Function(Contact) onTap = (c) {};

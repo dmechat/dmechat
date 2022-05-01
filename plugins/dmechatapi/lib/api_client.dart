@@ -211,6 +211,8 @@ class ApiClient {
           return value is double ? value : double.parse('$value');
         case 'LoginAccountRequestModel':
           return LoginAccountRequestModel.fromJson(value);
+        case 'LoginAccountResponseModel':
+          return LoginAccountResponseModel.fromJson(value);
         case 'RegisterGuestAccountRequestModel':
           return RegisterGuestAccountRequestModel.fromJson(value);
         case 'RegisterGuestAccountResponseModel':

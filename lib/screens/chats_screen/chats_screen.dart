@@ -27,6 +27,10 @@ class _ChatsScreenState extends State<ChatsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("dmechat"),
+        leading: Icon(Icons.menu),
+      ),
       body: Responsive(
         desktop: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
