@@ -14,22 +14,8 @@ void main() async {
   await sl.init();
   AppState appState = sl.sl<AppState>();
   appState.initialize();
-  // TODO: Move all of this to env.json
-  appState.firebase = await Firebase.initializeApp(
-    options: const FirebaseOptions(
-      apiKey: "AIzaSyBwxYR8mCIlBcv38AUjY-WJOP0PR8davdA",
-      appId: "1:663814795413:web:fc21819c28f1fcdb24eb9c",
-      messagingSenderId: "663814795413",
-      projectId: "dmechat-testnet",
-      authDomain: "dmechat-testnet.firebaseapp.com",
-      databaseURL: "https://dmechat-testnet-default-rtdb.firebaseio.com",
-      storageBucket: "dmechat-testnet.appspot.com",
-    ),
-  );
-
   runApp(
-    ChangeNotifierProvider(
-        create: (context) => appState, child: const DMEChat()),
+    const DMEChat(),
   );
 }
 

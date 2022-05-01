@@ -12,6 +12,18 @@ class AppState extends ChangeNotifier {
   int balance;
   FirebaseApp firebase;
   Future initialize() async {
+    // TODO: Move all of this to env.json
+    firebase = await Firebase.initializeApp(
+      options: const FirebaseOptions(
+        apiKey: "AIzaSyBwxYR8mCIlBcv38AUjY-WJOP0PR8davdA",
+        appId: "1:663814795413:web:fc21819c28f1fcdb24eb9c",
+        messagingSenderId: "663814795413",
+        projectId: "dmechat-testnet",
+        authDomain: "dmechat-testnet.firebaseapp.com",
+        databaseURL: "https://dmechat-testnet-default-rtdb.firebaseio.com",
+        storageBucket: "dmechat-testnet.appspot.com",
+      ),
+    );
     // final prefs = await SharedPreferences.getInstance();
 
     // _log.info("initialize.prefs $prefs ${prefs.getKeys()}");

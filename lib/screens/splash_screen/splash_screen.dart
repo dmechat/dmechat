@@ -12,36 +12,63 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var sp = sl<SharedPreferences>();
-    var accountId = sp.getString(Keys().accountId);
-    var contents = Column(children: [
-      ElevatedButton(
-        child: const Text(
-          "Go to contacts screen",
-        ),
-        onPressed: () {
-          Navigator.of(context).pushReplacementNamed(ChatsScreen.routeName);
-        },
-      ),
-      ElevatedButton(
-        child: const Text(
-          "Go to wallet setup screen",
-        ),
-        onPressed: accountId != null
-            ? null
-            : () {
-                Navigator.of(context)
-                    .pushReplacementNamed(WalletSetupScreen.routeName);
-              },
-      ),
-      Text(accountId)
-    ]);
-    return Scaffold(
+    return const Scaffold(
       body: Responsive(
-        desktop: contents,
-        tablet: contents,
-        mobile: contents,
+        desktop: SplashPageContents(),
+        tablet: SplashPageContents(),
+        mobile: SplashPageContents(),
       ),
     );
+  }
+}
+
+class SplashPageContents extends StatelessWidget {
+  const SplashPageContents({
+    Key key,
+  }) : super(key: key);
+
+  navigateToApp(BuildContext context) {
+    // get sharedpreferences
+    var sp = sl<SharedPreferences>();
+
+    // if accountId exists, a wallet is created and registered
+    // go to chats screen
+    if (sp.containsKey(Keys.accountId) && sp.containsKey(Keys.mnemonic)) {
+      Navigator.of(context).pushNamed(ChatsScreen.routeName);
+    }
+
+    // else
+    // go to wallet create page
+    else {
+      Navigator.of(context).pushNamed(WalletSetupScreen.routeName);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                "images/dme-logo.png",
+                scale: 0.5,
+              ),
+            ],
+          ),
+          ElevatedButton(
+            child: const Padding(
+              padding: EdgeInsets.all(kDefaultPadding),
+              child: Text(
+                "Get Started",
+              ),
+            ),
+            onPressed: () => navigateToApp(context),
+          ),
+        ]);
   }
 }

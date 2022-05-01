@@ -3,6 +3,7 @@ import 'package:dmechat/screens/calls_screen/calls_screen.dart';
 import 'package:dmechat/screens/chats_screen/chats_screen.dart';
 import 'package:dmechat/screens/contacts_screen/contacts_screen.dart';
 import 'package:dmechat/screens/splash_screen/splash_screen.dart';
+import 'package:dmechat/screens/wallet/wallet_register_confirm/wallet_register_confirm.dart';
 import 'package:dmechat/screens/wallet/wallet_register_username/wallet_register_username.dart';
 import 'package:dmechat/screens/wallet_setup_screen/wallet_setup_screen.dart';
 import 'package:flutter/widgets.dart';
@@ -17,4 +18,6 @@ final Map<String, WidgetBuilder> routes = {
   CallsScreen.routeName: (context) => const CallsScreen(),
   WalletSetupScreen.routeName: (context) => const WalletSetupScreen(),
   WalletRegisterUsername.routeName: (context) => const WalletRegisterUsername(),
+  WalletRegisterConfirmScreen.routeName: (context) =>
+      const WalletRegisterConfirmScreen(),
 };

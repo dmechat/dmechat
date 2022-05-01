@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 class Keys {
-  String accountId = "accountId";
-  String publicKey = "publicKey";
-  String privateKey = "privateKey";
-  String mnemonic = "mnemonic";
-  String credentials = "credentials";
+  static String accountId = "accountId";
+  static String publicKey = "publicKey";
+  static String privateKey = "privateKey";
+  static String mnemonic = "mnemonic";
+  static String credentials = "credentials";
 }
 
 const kMobileWidth = 500;

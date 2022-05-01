@@ -8,6 +8,8 @@ import 'package:dmechat/core/models/dme_auth_user.dart';
 import 'package:dmechat/data.dart';
 import 'package:dmechat/injection_container.dart';
 import 'package:dmechat/screens/chats_screen/chats_screen.dart';
+import 'package:dmechat/screens/wallet/wallet_register_confirm/wallet_register_confirm.dart';
+import 'package:dmechat/widgets/responsive/responsive.dart';
 import 'package:dmechatapi/api.dart';
 import 'package:fast_base58/fast_base58.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -31,12 +33,31 @@ class WalletRegisterUsername extends StatefulWidget {
 }
 
 class _WalletRegisterUsernameState extends State<WalletRegisterUsername> {
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: Responsive(
+          desktop: Text("Desktop"),
+          tablet: WalletRegisterWidget(),
+          mobile: WalletRegisterWidget()),
+    );
+  }
+}
+
+class WalletRegisterWidget extends StatefulWidget {
+  const WalletRegisterWidget({Key key}) : super(key: key);
+
+  @override
+  State<WalletRegisterWidget> createState() => _WalletRegisterWidgetState();
+}
+
+class _WalletRegisterWidgetState extends State<WalletRegisterWidget> {
   String mnemonic = generateMnemonic();
   String username = f.person.firstName().toLowerCase();
 
   saveSeedPhraseAndRegisterForGuestAccount() async {
     var sp = sl<SharedPreferences>();
-    sp.setString(Keys().mnemonic, mnemonic);
+    sp.setString(Keys.mnemonic, mnemonic);
 
     var seed = mnemonicToSeed(mnemonic);
     var api = sl<ApiApi>();
@@ -56,7 +77,7 @@ class _WalletRegisterUsernameState extends State<WalletRegisterUsername> {
         .signInWithCustomToken(loginTokenResult.signInToken);
     _log.fine("signInResult: $signInResult");
     sp.setString(
-      Keys().credentials,
+      Keys.credentials,
       jsonEncode(
         DMEAuthUser.toJson(DMEAuthUser.fromUser(
           signInResult.user,
@@ -74,7 +95,8 @@ class _WalletRegisterUsernameState extends State<WalletRegisterUsername> {
         .child(publicKey)
         .set({"accountId": signInResult.user.uid});
 
-    // Navigator.of(context).pushReplacementNamed(ChatsScreen.routeName);
+    Navigator.of(context)
+        .pushReplacementNamed(WalletRegisterConfirmScreen.routeName);
   }
 
   Future<RegisterGuestAccountResponseModel> registerGuestAccount(
@@ -95,8 +117,8 @@ class _WalletRegisterUsernameState extends State<WalletRegisterUsername> {
     // registerGuestAccount
     var result = await api.registerGuestAccount(model);
     _log.fine("result: $result");
-    sp.setString(Keys().accountId, result.accountId);
-    sp.setString(Keys().publicKey, publicKey);
+    sp.setString(Keys.accountId, result.accountId);
+    sp.setString(Keys.publicKey, publicKey);
     return result;
   }
 
@@ -117,30 +139,35 @@ class _WalletRegisterUsernameState extends State<WalletRegisterUsername> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(kDefaultPadding),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              TextFormField(
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.all(kDefaultPadding),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: kDefaultPadding),
+              child: TextFormField(
                 initialValue: username,
                 onChanged: (value) => setState(() {
                   username = value;
                 }),
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: "Username",
                 ),
               ),
-              ElevatedButton(
-                onPressed: saveSeedPhraseAndRegisterForGuestAccount,
-                child: const Text(
-                  "I wrote down my phrase. Register my username!",
+            ),
+            ElevatedButton(
+              onPressed: saveSeedPhraseAndRegisterForGuestAccount,
+              child: const Padding(
+                padding: EdgeInsets.all(kDefaultPadding),
+                child: Text(
+                  "Register my username!",
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         ),
       ),
     );
