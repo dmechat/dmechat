@@ -1,7 +1,122 @@
 {
   /* Visit https://firebase.google.com/docs/database/security to learn more about security rules. */
   "rules": {
-    ".read": true,
-    ".write": true
+    "users": {
+      "$publicKey": {
+        "accountName": {
+          ".write": "auth.token.publicKey == $publicKey",
+          ".read": "auth.token.publicKey == $publicKey"
+        },
+        // Create invitation
+        "invitations": {
+          "$invitationPublicKey": {
+            ".write": "auth.token.publicKey == $invitationPublicKey",
+            ".read": "auth.token.publicKey == $publicKey"
+          }
+        }
+      }
+    }
+  },
+  "data": {
+    "users": {
+      "ed25519:a": {
+        "accountName": "abcd.guests.dev-9999", // my account,
+        "contacts": {
+          "ed25519:a1": {
+            "accountName": "abcd1.guests.dev-9999", // friend
+            "invitation": {
+              "status": "SENT"
+            },
+            "roomId": "room1"
+          },
+          "ed25519:a3": {
+            "accountName": "abcd3.guests.dev-9999", // friend
+            "invitation": {
+              "status": "SENT"
+            },
+            "roomId": "room2"
+          }
+        },
+        "invitations": {
+          "ed25519:a1": {
+            // If accepted, this will be removed from invitations, and a contact will be added
+            "accountName": "abcd5.guests.dev-9999", // friend
+            "status": "SENT" // SENT or IGNORED
+          },
+          "ed25519:a1": {
+            // If accepted, this will be removed from invitations, and a contact will be added
+            "accountName": "abcd6.guests.dev-9999", // friend
+            "status": "SENT" // SENT or IGNORED
+          }
+        },
+        "interests": {
+          "nba": 15,
+          "fishing": 77,
+          "baking": 11
+        },
+        "allowAds": false
+      },
+      "ed25519:b": {
+        "accountName": "babcd.guests.dev-9999", // my account,
+        "contacts": {
+          "ed25519:a1": {
+            "accountName": "abcd1.guests.dev-9999", // friend
+            "invitation": {
+              "status": "SENT"
+            },
+            "roomId": "room1"
+          },
+          "ed25519:a3": {
+            "accountName": "abcd3.guests.dev-9999", // friend
+            "invitation": {
+              "status": "SENT"
+            },
+            "roomId": "room2"
+          }
+        },
+        "invitations": {
+        }
+      }
+    },
+    "rooms": {
+      "room1": {
+        "participants": ["ed25519:a", "ed25519:b"],
+        "messages": {
+          "0": {
+            "content": "hello",
+            "sender": "ed25519:a"
+          },
+          "1": {
+            "content": "hello",
+            "sender": "ed25519:b"
+          },
+          "2": {
+            "content": "how are you",
+            "sender": "ed25519:a"
+          }
+        }
+      },
+      "room2": {
+        "participants": ["ed25519:b", "ed25519:c"],
+        "messages": {
+          "0": {
+            "content": "hello",
+            "sender": "ed25519:c"
+          },
+          "1": {
+            "content": "hello",
+            "sender": "ed25519:b"
+          },
+          "2": {
+            "content": "how are you",
+            "sender": "ed25519:c"
+          }
+        }
+      }
+    }
   }
 }
+
+// todo: Referral links system.  -- Just for creating accounts. -- possible in WEB, but is it possible in UI?
+// todo: distribution scheme. 
+// 

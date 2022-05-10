@@ -90,10 +90,17 @@ class _WalletRegisterWidgetState extends State<WalletRegisterWidget> {
 
     var pk = Base58Encode(signingKey.publicKey.buffer.asUint8List());
     var publicKey = "ed25519:$pk";
-    FirebaseDatabase.instanceFor(app: appState.firebase)
+    var root = FirebaseDatabase.instanceFor(app: appState.firebase);
+    await root
         .ref("users")
         .child(publicKey)
-        .set({"accountId": signInResult.user.uid});
+        .update({"accountId": signInResult.user.uid});
+
+    // await root
+    //     .ref("users")
+    //     .child("ed25519:Gm3oH3r6RsRprvgvaQCR5yaBBBeVmddNghLY8EZb2WMi")
+    //     .child("invitations")
+    //     .update({publicKey: signInResult.user.uid});
 
     Navigator.of(context)
         .pushReplacementNamed(WalletRegisterConfirmScreen.routeName);
