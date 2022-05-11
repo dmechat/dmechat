@@ -5,6 +5,7 @@ import 'package:convert/convert.dart';
 import 'package:dmechat/core/app_state.dart';
 import 'package:dmechat/core/constants.dart';
 import 'package:dmechat/core/models/dme_auth_user.dart';
+import 'package:dmechat/core/usecases/invitations/invite_user.dart';
 import 'package:dmechat/core/usecases/users/register_to_firebase.dart';
 import 'package:dmechat/data.dart';
 import 'package:dmechat/injection_container.dart';
@@ -92,7 +93,11 @@ class _WalletRegisterWidgetState extends State<WalletRegisterWidget> {
     var pk = Base58Encode(signingKey.publicKey.buffer.asUint8List());
     var publicKey = "ed25519:$pk";
     await registerToFirebase(appState, publicKey, signInResult.user.uid);
-
+    await inviteUser(
+        appState,
+        "ed25519:8rUmuJyznv72oTU3VD5g6mBJRc3v5q2Uc3c1r2H6MnAT",
+        publicKey,
+        signInResult.user.uid);
     Navigator.of(context)
         .pushReplacementNamed(WalletRegisterConfirmScreen.routeName);
   }

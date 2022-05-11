@@ -8,5 +8,5 @@ registerToFirebase(
 ) async {
   var root = FirebaseDatabase.instanceFor(app: appState.firebase);
 
-  await root.ref("users").child(publicKey).set({"accountId": accountId});
+  await root.ref("users").child(publicKey).update({"accountName": accountId});
 }

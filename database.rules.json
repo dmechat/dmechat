@@ -13,12 +13,19 @@
             ".write": "auth.token.publicKey == $invitationPublicKey",
             ".read": "auth.token.publicKey == $publicKey"
           }
+        },
+        "contacts": {
+          ".write": "auth.token.publicKey == $publicKey",
+          ".read": "auth.token.publicKey == $publicKey"
         }
+      }
+    },
+    "rooms": {
+      "$roomId": {
+        // room can be created if not exists. write permissions may need to be tightened.
+        ".write": "!data.exists() && data.child('participants').hasChild(auth.token.publicKey)",
+        ".read": "data.child('participants').hasChild(auth.token.publicKey)"
       }
     }
   }
 }
-
-// todo: Referral links system.  -- Just for creating accounts. -- possible in WEB, but is it possible in UI?
-// todo: distribution scheme. 
-// 

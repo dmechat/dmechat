@@ -13,5 +13,5 @@ inviteUser(
       .child(pubKeyUserToInvite)
       .child("invitations")
       .child(myPubKey)
-      .update({"accountId": myAccountId});
+      .update({"accountName": myAccountId});
 }
