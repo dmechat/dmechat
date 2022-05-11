@@ -5,6 +5,7 @@ import 'package:convert/convert.dart';
 import 'package:dmechat/core/app_state.dart';
 import 'package:dmechat/core/constants.dart';
 import 'package:dmechat/core/models/dme_auth_user.dart';
+import 'package:dmechat/core/usecases/users/register_to_firebase.dart';
 import 'package:dmechat/data.dart';
 import 'package:dmechat/injection_container.dart';
 import 'package:dmechat/screens/chats_screen/chats_screen.dart';
@@ -90,17 +91,7 @@ class _WalletRegisterWidgetState extends State<WalletRegisterWidget> {
 
     var pk = Base58Encode(signingKey.publicKey.buffer.asUint8List());
     var publicKey = "ed25519:$pk";
-    var root = FirebaseDatabase.instanceFor(app: appState.firebase);
-    await root
-        .ref("users")
-        .child(publicKey)
-        .update({"accountId": signInResult.user.uid});
-
-    // await root
-    //     .ref("users")
-    //     .child("ed25519:Gm3oH3r6RsRprvgvaQCR5yaBBBeVmddNghLY8EZb2WMi")
-    //     .child("invitations")
-    //     .update({publicKey: signInResult.user.uid});
+    await registerToFirebase(appState, publicKey, signInResult.user.uid);
 
     Navigator.of(context)
         .pushReplacementNamed(WalletRegisterConfirmScreen.routeName);

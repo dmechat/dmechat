@@ -24,16 +24,10 @@
         "contacts": {
           "ed25519:a1": {
             "accountName": "abcd1.guests.dev-9999", // friend
-            "invitation": {
-              "status": "SENT"
-            },
             "roomId": "room1"
           },
           "ed25519:a3": {
             "accountName": "abcd3.guests.dev-9999", // friend
-            "invitation": {
-              "status": "SENT"
-            },
             "roomId": "room2"
           }
         },
@@ -61,16 +55,10 @@
         "contacts": {
           "ed25519:a1": {
             "accountName": "abcd1.guests.dev-9999", // friend
-            "invitation": {
-              "status": "SENT"
-            },
             "roomId": "room1"
           },
           "ed25519:a3": {
             "accountName": "abcd3.guests.dev-9999", // friend
-            "invitation": {
-              "status": "SENT"
-            },
             "roomId": "room2"
           }
         },
