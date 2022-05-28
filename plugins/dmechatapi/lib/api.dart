@@ -27,12 +27,13 @@ part 'auth/oauth.dart';
 part 'auth/http_basic_auth.dart';
 part 'auth/http_bearer_auth.dart';
 
-part 'api/api_api.dart';
+part 'api/dmechat_api.dart';
 
 part 'model/login_account_request_model.dart';
 part 'model/login_account_response_model.dart';
 part 'model/register_guest_account_request_model.dart';
 part 'model/register_guest_account_response_model.dart';
+part 'model/user_model.dart';
 
 
 const _delimiters = {'csv': ',', 'ssv': ' ', 'tsv': '\t', 'pipes': '|'};

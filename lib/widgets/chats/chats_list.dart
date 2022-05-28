@@ -21,7 +21,7 @@ class _ChatsList extends State<ChatsList> {
   Function onTap;
   List<Contact> favoriteContacts =
       contacts.where((c) => c.isFavorite).take(6).toList();
-  List<Contact> dms = contacts.take(6).toList();
+  List<Contact> dms = [];
   _ChatsList(this.onTap);
 
   @override
@@ -35,19 +35,19 @@ class _ChatsList extends State<ChatsList> {
           children: [
             ContactsListHeader(),
             ContactsSearchBar(),
-            ContactListTiles(
-              onTap: onTap,
-              contacts: favoriteContacts,
-              header: "Favorites",
-            ),
+            // ContactListTiles(
+            //   onTap: onTap,
+            //   contacts: favoriteContacts,
+            //   header: "Favorites",
+            // ),
             ContactListTiles(
               onTap: onTap,
               contacts: dms,
               header: "Direct Messages",
             ),
             // DMContacts(),
-            Rooms(),
-            ArchivedChats()
+            // Rooms(),
+            // ArchivedChats()
           ],
         ),
       ),

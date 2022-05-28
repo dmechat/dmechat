@@ -18,7 +18,7 @@ Future init() async {
   apiClient.addDefaultHeader("Content-Type", "application/json");
 
   sl.registerSingleton<ApiClient>(apiClient);
-  sl.registerLazySingleton<ApiApi>(() => ApiApi(apiClient));
+  sl.registerLazySingleton<DmechatApi>(() => DmechatApi(apiClient));
   //! Core
 
   //! External

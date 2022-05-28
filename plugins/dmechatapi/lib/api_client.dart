@@ -217,6 +217,8 @@ class ApiClient {
           return RegisterGuestAccountRequestModel.fromJson(value);
         case 'RegisterGuestAccountResponseModel':
           return RegisterGuestAccountResponseModel.fromJson(value);
+        case 'UserModel':
+          return UserModel.fromJson(value);
         default:
           Match match;
           if (value is List &&

@@ -1,31 +1,7 @@
 {
   /* Visit https://firebase.google.com/docs/database/security to learn more about security rules. */
   "rules": {
-    "users": {
-      "$publicKey": {
-        "accountName": {
-          ".write": "auth.token.publicKey == $publicKey",
-          ".read": "auth.token.publicKey == $publicKey"
-        },
-        // Create invitation
-        "invitations": {
-          "$invitationPublicKey": {
-            ".write": "auth.token.publicKey == $invitationPublicKey",
-            ".read": "auth.token.publicKey == $publicKey"
-          }
-        },
-        "contacts": {
-          ".write": "auth.token.publicKey == $publicKey",
-          ".read": "auth.token.publicKey == $publicKey"
-        }
-      }
-    },
-    "rooms": {
-      "$roomId": {
-        // room can be created if not exists. write permissions may need to be tightened.
-        ".write": "!data.exists() && data.child('participants').hasChild(auth.token.publicKey)",
-        ".read": "data.child('participants').hasChild(auth.token.publicKey)"
-      }
-    }
+    ".read": "auth.token != null",
+    ".write": "auth.token != null"
   }
 }

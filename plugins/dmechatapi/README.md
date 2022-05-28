@@ -40,12 +40,12 @@ Please follow the [installation procedure](#installation--usage) and then run th
 import 'package:dmechatapi/api.dart';
 
 
-final api_instance = ApiApi();
+final api_instance = DmechatApi();
 
 try {
     api_instance.appControllerGetHello();
 } catch (e) {
-    print('Exception when calling ApiApi->appControllerGetHello: $e\n');
+    print('Exception when calling DmechatApi->appControllerGetHello: $e\n');
 }
 
 ```
@@ -56,9 +56,10 @@ All URIs are relative to *http://localhost*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*ApiApi* | [**appControllerGetHello**](doc//ApiApi.md#appcontrollergethello) | **GET** / | 
-*ApiApi* | [**loginGuest**](doc//ApiApi.md#loginguest) | **POST** /login-guest | Allows guests login with their secret/public keys and receive a firebase auth token in return
-*ApiApi* | [**registerGuestAccount**](doc//ApiApi.md#registerguestaccount) | **POST** /register | Allows users to register an account on the guests.dmechat contract
+*DmechatApi* | [**appControllerGetHello**](doc//DmechatApi.md#appcontrollergethello) | **GET** / | 
+*DmechatApi* | [**listAvailableUsers**](doc//DmechatApi.md#listavailableusers) | **GET** /list-available-users | list users in the app
+*DmechatApi* | [**loginGuest**](doc//DmechatApi.md#loginguest) | **POST** /login-guest | Allows guests login with their secret/public keys and receive a firebase auth token in return
+*DmechatApi* | [**registerGuestAccount**](doc//DmechatApi.md#registerguestaccount) | **POST** /register | Allows users to register an account on the guests.dmechat contract
 
 
 ## Documentation For Models
@@ -67,6 +68,7 @@ Class | Method | HTTP request | Description
  - [LoginAccountResponseModel](doc//LoginAccountResponseModel.md)
  - [RegisterGuestAccountRequestModel](doc//RegisterGuestAccountRequestModel.md)
  - [RegisterGuestAccountResponseModel](doc//RegisterGuestAccountResponseModel.md)
+ - [UserModel](doc//UserModel.md)
 
 
 ## Documentation For Authorization

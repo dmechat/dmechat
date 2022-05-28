@@ -1,14 +1,15 @@
 .gitignore
 .travis.yml
 README.md
-doc/ApiApi.md
+doc/DmechatApi.md
 doc/LoginAccountRequestModel.md
 doc/LoginAccountResponseModel.md
 doc/RegisterGuestAccountRequestModel.md
 doc/RegisterGuestAccountResponseModel.md
+doc/UserModel.md
 git_push.sh
 lib/api.dart
-lib/api/api_api.dart
+lib/api/dmechat_api.dart
 lib/api_client.dart
 lib/api_exception.dart
 lib/api_helper.dart
@@ -21,5 +22,7 @@ lib/model/login_account_request_model.dart
 lib/model/login_account_response_model.dart
 lib/model/register_guest_account_request_model.dart
 lib/model/register_guest_account_response_model.dart
+lib/model/user_model.dart
 pubspec.yaml
-test/login_account_response_model_test.dart
+test/dmechat_api_test.dart
+test/user_model_test.dart
