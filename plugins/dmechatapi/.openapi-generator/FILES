@@ -1,4 +1,5 @@
 .gitignore
+.openapi-generator-ignore
 .travis.yml
 README.md
 doc/DmechatApi.md
@@ -25,4 +26,8 @@ lib/model/register_guest_account_response_model.dart
 lib/model/user_model.dart
 pubspec.yaml
 test/dmechat_api_test.dart
+test/login_account_request_model_test.dart
+test/login_account_response_model_test.dart
+test/register_guest_account_request_model_test.dart
+test/register_guest_account_response_model_test.dart
 test/user_model_test.dart

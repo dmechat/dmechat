@@ -5,9 +5,14 @@ import 'package:dmechat/core/constants.dart';
 import 'package:dmechat/core/models/models.dart';
 import 'package:dmechat/data.dart';
 import 'package:dmechat/injection_container.dart';
+import 'package:dmechatapi/api.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:quick_log/quick_log.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:dice_bear/dice_bear.dart';
+
+const _logger = Logger("ChatsList");
 
 class ChatsList extends StatefulWidget {
   Function(Contact) onTap = (c) {};
@@ -22,7 +27,29 @@ class _ChatsList extends State<ChatsList> {
   List<Contact> favoriteContacts =
       contacts.where((c) => c.isFavorite).take(6).toList();
   List<Contact> dms = [];
-  _ChatsList(this.onTap);
+  _ChatsList(this.onTap) {
+    var api = sl<DmechatApi>();
+    List<Contact> _users = [];
+    api.listAvailableUsers().then((users) {
+      for (var user in users) {
+        _users.add(
+          Contact(
+              accountId: user.publicKey,
+              name: user.accountName,
+              id: user.accountName,
+              imageUrl: DiceBearBuilder(seed: user.accountName)
+                  .build()
+                  .svgUri
+                  .toString()),
+        );
+      }
+      setState(() {
+        dms = _users;
+      });
+    }).catchError((error) {
+      _logger.error(error);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

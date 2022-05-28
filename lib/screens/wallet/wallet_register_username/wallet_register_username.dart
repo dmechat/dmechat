@@ -62,7 +62,7 @@ class _WalletRegisterWidgetState extends State<WalletRegisterWidget> {
     sp.setString(Keys.mnemonic, mnemonic);
 
     var seed = mnemonicToSeed(mnemonic);
-    var api = sl<ApiApi>();
+    var api = sl<DmechatApi>();
     ed25519.KeyData master =
         await ed25519.ED25519_HD_KEY.getMasterKeyFromSeed(List.from(seed));
     _log.fine("master: ${master.key} ${hex.encode(master.key)}");
@@ -103,7 +103,7 @@ class _WalletRegisterWidgetState extends State<WalletRegisterWidget> {
   }
 
   Future<RegisterGuestAccountResponseModel> registerGuestAccount(
-      SigningKey signingKey, ApiApi api, SharedPreferences sp) async {
+      SigningKey signingKey, DmechatApi api, SharedPreferences sp) async {
     var pk = Base58Encode(signingKey.publicKey.buffer.asUint8List());
     var publicKey = "ed25519:$pk";
     var accountId = "$username.guests.dev-1650038403427-88855978238907";
@@ -126,7 +126,7 @@ class _WalletRegisterWidgetState extends State<WalletRegisterWidget> {
   }
 
   Future<LoginAccountResponseModel> loginAsGuest(
-      SigningKey signingKey, ApiApi api, SharedPreferences sp) async {
+      SigningKey signingKey, DmechatApi api, SharedPreferences sp) async {
     var pk = Base58Encode(signingKey.publicKey.buffer.asUint8List());
     var publicKey = "ed25519:$pk";
     var accountId = "$username.guests.dev-1650038403427-88855978238907";
