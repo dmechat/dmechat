@@ -5,6 +5,7 @@ import 'package:dmechat/core/constants.dart';
 import 'package:dmechat/core/models/models.dart';
 import 'package:dmechat/data.dart';
 import 'package:dmechat/injection_container.dart';
+import 'package:dmechat/screens/contact_chat_screen/contact_chat_screen.dart';
 import 'package:dmechatapi/api.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ class ChatsList extends StatefulWidget {
   ChatsList({Key key, this.onTap}) : super(key: key);
 
   @override
+  // ignore: no_logic_in_create_state
   State<ChatsList> createState() => _ChatsList(onTap);
 }
 
@@ -68,7 +70,9 @@ class _ChatsList extends State<ChatsList> {
             //   header: "Favorites",
             // ),
             ContactListTiles(
-              onTap: onTap,
+              onTap: (c) {
+                Navigator.of(context).pushNamed(ContactsChatScreen.routeName);
+              },
               contacts: dms,
               header: "Direct Messages",
             ),
